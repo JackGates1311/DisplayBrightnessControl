@@ -18,10 +18,5 @@
             android:progress="100"
             android:paddingBottom="16dp"/>
 
-        <Button
-            android:id="@+id/btnApplyBrightness"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Apply"/>
     </LinearLayout>
 </ScrollView>

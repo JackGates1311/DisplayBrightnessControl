@@ -15,12 +15,16 @@ public class DisplayBrightnessControl extends Activity {
 
     boolean success;
     SeekBar mSeekBarBrightness;
+    final int minBrightness = 150;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.control_brightness_display);
+        load();
+    }
 
+    private void load() {
         mSeekBarBrightness = findViewById(R.id.seekBarBrightness);
         mSeekBarBrightness.setMax(255);
         mSeekBarBrightness.setProgress(getBrightness());
@@ -35,6 +39,8 @@ public class DisplayBrightnessControl extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (b && success) {
+                    if(i < minBrightness)
+                        i = minBrightness;
                     setBrightness(i);
                 }
             }
@@ -52,13 +58,12 @@ public class DisplayBrightnessControl extends Activity {
                 }
             }
         });
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mSeekBarBrightness.setProgress(getBrightness());
+        load();
     }
 
     @Override
@@ -83,7 +88,7 @@ public class DisplayBrightnessControl extends Activity {
     }
 
     private int getBrightness() {
-        int brightness = 100;
+        int brightness = minBrightness;
 
         try{
             ContentResolver contentResolver = getContentResolver();
