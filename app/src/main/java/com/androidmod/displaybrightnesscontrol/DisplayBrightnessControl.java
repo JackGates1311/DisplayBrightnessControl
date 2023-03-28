@@ -15,7 +15,7 @@ public class DisplayBrightnessControl extends Activity {
 
     boolean success;
     SeekBar mSeekBarBrightness;
-    final int minBrightness = 150;
+    final int minBrightness = 155;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class DisplayBrightnessControl extends Activity {
 
     private void load() {
         mSeekBarBrightness = findViewById(R.id.seekBarBrightness);
-        mSeekBarBrightness.setMax(255);
-        mSeekBarBrightness.setProgress(getBrightness());
+        mSeekBarBrightness.setMax(100);
+        mSeekBarBrightness.setProgress(getBrightness() - minBrightness);
 
         try {
             getPermission();
@@ -39,9 +39,7 @@ public class DisplayBrightnessControl extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (b && success) {
-                    if(i < minBrightness)
-                        i = minBrightness;
-                    setBrightness(i);
+                    setBrightness(i + minBrightness);
                 }
             }
 
