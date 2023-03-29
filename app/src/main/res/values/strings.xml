@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Display Brightness Control</string>
     <string name="ok">OK</string>
+    <string name="activity_name">Brightness Control</string>
 </resources>

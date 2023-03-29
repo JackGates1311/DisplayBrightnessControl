@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.view.WindowManager;
 import android.widget.SeekBar;
@@ -16,6 +17,10 @@ public class DisplayBrightnessControl extends Activity {
     boolean success;
     SeekBar mSeekBarBrightness;
     final int minBrightness = 155;
+    final int closeInterval = 2000;
+
+    Handler handler = new Handler();
+    Runnable finishRunnable = this::finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,7 @@ public class DisplayBrightnessControl extends Activity {
     }
 
     private void load() {
+
         mSeekBarBrightness = findViewById(R.id.seekBarBrightness);
         mSeekBarBrightness.setMax(100);
         mSeekBarBrightness.setProgress(getBrightness() - minBrightness);
@@ -40,12 +46,13 @@ public class DisplayBrightnessControl extends Activity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (b && success) {
                     setBrightness(i + minBrightness);
+                    cancelFinishTimer();
                 }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                cancelFinishTimer();
             }
 
             @Override
@@ -54,8 +61,19 @@ public class DisplayBrightnessControl extends Activity {
                     Toast.makeText(DisplayBrightnessControl.this,
                             "Permission not granted", Toast.LENGTH_SHORT).show();
                 }
+                startFinishTimer();
             }
         });
+
+        startFinishTimer();
+    }
+
+    private void startFinishTimer() {
+        handler.postDelayed(finishRunnable, closeInterval);
+    }
+
+    private void cancelFinishTimer() {
+        handler.removeCallbacks(finishRunnable);
     }
 
     @Override

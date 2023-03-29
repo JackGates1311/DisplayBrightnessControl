@@ -5,18 +5,27 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageView android:id="@android:id/icon"
+            android:src="@drawable/ic_brightness"
+            android:paddingTop="5.0dip"
+            android:paddingRight="20dp"
+            android:layout_gravity="left"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Brightness Icon" />
 
         <SeekBar
             android:id="@+id/seekBarBrightness"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="255"
-            android:progress="100"
-            android:paddingBottom="16dp"/>
+            android:progress="100" />
 
     </LinearLayout>
 </ScrollView>
